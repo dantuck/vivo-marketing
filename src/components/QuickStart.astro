@@ -1,0 +1,134 @@
+---
+const steps = [
+  {
+    title: 'Initialize vivo',
+    desc: 'Checks prerequisites and scaffolds your config and secrets files.',
+    cmd: 'vivo init',
+  },
+  {
+    title: 'Edit your config',
+    desc: 'Set your repo path, directories to back up, and remote destinations.',
+    cmd: 'vivo config edit',
+  },
+  {
+    title: 'Add your secrets',
+    desc: 'Set your restic password and remote credentials, encrypted with SOPS + age.',
+    cmd: 'vivo secrets edit',
+  },
+  {
+    title: 'Run a backup',
+    desc: 'Dry-run first to verify your setup, then run the real backup.',
+    cmd: 'vivo --dry-run\nvivo',
+  },
+]
+---
+
+<section class="quickstart" id="quick-start">
+  <div class="inner">
+    <p class="label">Quick Start</p>
+    <h2>Up and running<br />in four commands.</h2>
+
+    <div class="steps">
+      {steps.map((s, i) => (
+        <div class="step">
+          <div class="num" aria-hidden="true">{i + 1}</div>
+          <div class="content">
+            <h3>{s.title}</h3>
+            <p>{s.desc}</p>
+            <pre class="cmd"><span class="prompt">$</span> {s.cmd}</pre>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .quickstart {
+    background: var(--bg2);
+    padding: 80px 48px;
+    transition: background 0.2s;
+  }
+
+  .inner {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 40px;
+  }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .step {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #0f172a;
+    font-weight: 700;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .content h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .content p {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .cmd {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 10px 14px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 13px;
+    color: var(--code-text);
+    margin: 0;
+    white-space: pre;
+    line-height: 1.7;
+  }
+
+  .prompt { color: var(--accent); }
+
+  @media (max-width: 640px) {
+    .quickstart { padding: 64px 20px; }
+  }
+</style>
