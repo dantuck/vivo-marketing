@@ -1,0 +1,111 @@
+---
+const features = [
+  {
+    icon: '🔐',
+    title: 'Credentials encrypted at rest',
+    body: 'SOPS + age keeps your remote keys out of plaintext configs. Secrets are decrypted in-memory only at runtime.',
+  },
+  {
+    icon: '☁️',
+    title: 'Multi-remote sync',
+    body: 'Push the same backup to S3, Backblaze B2, MinIO, and more in one run. Add as many remotes as you need.',
+  },
+  {
+    icon: '⏭️',
+    title: 'Step control',
+    body: 'Use --start-step to skip already-completed phases. Resume from forget, or run sync-only.',
+  },
+  {
+    icon: '🔄',
+    title: 'Self-updating',
+    body: 'Run `vivo update` to pull the latest release. Background version checks notify you after each run.',
+  },
+  {
+    icon: '🔗',
+    title: 'Task chaining',
+    body: 'Tasks can call other tasks and run shell commands post-backup. Circular references are detected and skipped.',
+  },
+  {
+    icon: '🧪',
+    title: 'Dry-run mode',
+    body: 'Test your full configuration without writing a single byte. Skips remote sync, forwards --dry-run to restic.',
+  },
+]
+---
+
+<section class="features" id="features">
+  <div class="inner">
+    <p class="label">Features</p>
+    <h2>Everything restic<br />was missing.</h2>
+    <div class="grid">
+      {features.map((f) => (
+        <div class="feature">
+          <div class="icon" aria-hidden="true">{f.icon}</div>
+          <h3>{f.title}</h3>
+          <p>{f.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .features {
+    background: var(--bg);
+    padding: 80px 48px;
+    transition: background 0.2s;
+  }
+
+  .inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 48px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px 32px;
+  }
+
+  .icon { font-size: 22px; margin-bottom: 12px; }
+
+  .feature h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .feature p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  @media (max-width: 768px) {
+    .features { padding: 64px 20px; }
+    .grid { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+  }
+
+  @media (max-width: 480px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
