@@ -1,0 +1,144 @@
+---
+const methods = [
+  {
+    title: 'One-line install',
+    desc: 'Linux and macOS. Downloads the latest binary from GitHub Releases and verifies the SHA256 checksum.',
+    code: 'curl -sSf https://raw.githubusercontent.com/dantuck/vivo/main/install.sh | sh',
+  },
+  {
+    title: 'From Cargo',
+    desc: 'Requires Rust installed. Builds from source and installs to your Cargo bin directory.',
+    code: 'cargo install vivo',
+  },
+  {
+    title: 'Build from source',
+    desc: 'Clone from Codeberg or GitHub and build manually.',
+    code: 'git clone https://codeberg.org/tuck/vivo\ncd vivo\ncargo build --release\ncp target/release/vivo /usr/local/bin/',
+  },
+]
+---
+
+<section class="install" id="install">
+  <div class="inner">
+    <p class="label">Install</p>
+    <h2>Get vivo.</h2>
+
+    <div class="grid">
+      {methods.map((m) => (
+        <div class="card">
+          <h3>{m.title}</h3>
+          <p>{m.desc}</p>
+          <pre class="code"><span class="prompt">$</span> {m.code}</pre>
+        </div>
+      ))}
+    </div>
+
+    <div class="self-update">
+      <p>
+        Already installed? Run <code>vivo update</code> to upgrade to the latest release,
+        or <code>vivo update --dry-run</code> to preview without applying.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .install {
+    background: var(--bg);
+    padding: 80px 48px;
+    transition: background 0.2s;
+  }
+
+  .inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 36px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    transition: background 0.2s;
+  }
+
+  .card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .card > p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 10px 12px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 12px;
+    color: var(--code-text);
+    margin: 0;
+    white-space: pre;
+    overflow-x: auto;
+    line-height: 1.7;
+  }
+
+  .prompt { color: var(--accent); }
+
+  .self-update {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+  }
+
+  .self-update p {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .self-update code {
+    background: var(--bg3);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: ui-monospace, monospace;
+    font-size: 13px;
+    color: var(--accent);
+  }
+
+  @media (max-width: 768px) {
+    .install { padding: 64px 20px; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
