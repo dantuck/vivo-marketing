@@ -1,6 +1,6 @@
 export type Theme = 'dark' | 'light' | 'system'
 
-function applyTheme(theme: Theme): void {
+export function applyTheme(theme: Theme): void {
   const root = document.documentElement
   root.classList.remove('dark', 'light')
 
