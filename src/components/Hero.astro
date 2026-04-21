@@ -1,0 +1,181 @@
+---
+const INSTALL_CMD = 'curl -sSf https://raw.githubusercontent.com/dantuck/vivo/main/install.sh | sh'
+const VERSION = 'v0.4.2'
+---
+
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div class="badge">
+      <span class="badge-dot"></span>
+      {VERSION} — now on crates.io
+    </div>
+
+    <h1>
+      Encrypted backups.<br />
+      <span class="accent">Synced everywhere.</span>
+    </h1>
+
+    <p class="subtitle">
+      Vivo wraps restic to orchestrate backups with multi-remote sync — S3, B2, and more.
+      Credentials stay encrypted at rest with SOPS + age.
+    </p>
+
+    <div class="install-box">
+      <span class="prompt">$</span>
+      <code id="install-cmd">{INSTALL_CMD}</code>
+      <button class="copy-btn" id="copy-btn" aria-label="Copy install command">
+        <span id="copy-label">copy</span>
+      </button>
+    </div>
+
+    <div class="cta-row">
+      <a href="#quick-start" class="btn-primary">Get started</a>
+      <a href="https://github.com/dantuck/vivo" target="_blank" rel="noopener" class="btn-secondary">
+        View on GitHub
+      </a>
+      <a href="https://crates.io/crates/vivo" target="_blank" rel="noopener" class="btn-secondary">
+        crates.io
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  const btn = document.getElementById('copy-btn')!
+  const label = document.getElementById('copy-label')!
+  const cmd = document.getElementById('install-cmd')!
+
+  btn.addEventListener('click', async () => {
+    await navigator.clipboard.writeText(cmd.textContent ?? '')
+    label.textContent = 'copied!'
+    setTimeout(() => { label.textContent = 'copy' }, 2000)
+  })
+</script>
+
+<style>
+  .hero {
+    background: var(--bg);
+    padding: 96px 48px 80px;
+    transition: background 0.2s;
+  }
+
+  .hero-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+
+  .badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  h1 {
+    font-size: clamp(36px, 6vw, 56px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+
+  .accent { color: var(--accent); }
+
+  .subtitle {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 540px;
+    margin: 0 auto 36px;
+    line-height: 1.7;
+  }
+
+  .install-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 28px;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .prompt { color: var(--accent); font-size: 14px; flex-shrink: 0; }
+
+  code {
+    font-size: 13px;
+    color: var(--code-text);
+    white-space: nowrap;
+  }
+
+  .copy-btn {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 3px 10px;
+    font-size: 12px;
+    color: var(--muted);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .copy-btn:hover { background: var(--bg2); color: var(--text); }
+
+  .cta-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #0f172a;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 22px;
+    border-radius: 8px;
+    transition: opacity 0.15s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { opacity: 0.9; }
+
+  .btn-secondary {
+    background: var(--bg2);
+    color: var(--text);
+    font-size: 14px;
+    padding: 10px 22px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    transition: background 0.15s;
+    display: inline-block;
+  }
+
+  .btn-secondary:hover { background: var(--bg3); }
+
+  @media (max-width: 640px) {
+    .hero { padding: 64px 20px 56px; }
+    .install-box { font-size: 11px; }
+  }
+</style>
