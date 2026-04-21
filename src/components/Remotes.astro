@@ -1,0 +1,142 @@
+---
+const remotes = [
+  {
+    title: 'S3-compatible',
+    body: 'AWS S3, MinIO, rustfs, or any S3-compatible endpoint. Uses restic copy for fast, verified transfer. Initialize the remote repo once before first sync.',
+    tag: 's3:https://s3.amazonaws.com/my-bucket',
+    init: 'restic init --repo s3:https://s3.amazonaws.com/my-bucket',
+  },
+  {
+    title: 'Backblaze B2',
+    body: 'Cost-effective cold storage via the b2 CLI. Uses b2 sync with automatic replacement of stale files. No remote restic repo initialization needed.',
+    tag: 'b2:my-bucket:restic/main',
+    init: null,
+  },
+]
+---
+
+<section class="remotes" id="remotes">
+  <div class="inner">
+    <p class="label">Remote Backends</p>
+    <h2>Your data.<br />Your clouds.</h2>
+
+    <div class="grid">
+      {remotes.map((r) => (
+        <div class="card">
+          <h3>{r.title}</h3>
+          <p>{r.body}</p>
+          <div class="tag">{r.tag}</div>
+          {r.init && (
+            <div class="init-block">
+              <span class="init-label">Initialize once</span>
+              <code>{r.init}</code>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .remotes {
+    background: var(--bg);
+    padding: 80px 48px;
+    transition: background 0.2s;
+  }
+
+  .inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 40px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    transition: background 0.2s;
+  }
+
+  .card h3 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .card > p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 16px;
+  }
+
+  .tag {
+    display: inline-block;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 3px 10px;
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--accent);
+  }
+
+  .init-block {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .init-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+
+  .init-block code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 7px 12px;
+    font-size: 12px;
+    color: var(--code-text);
+    display: block;
+    font-family: ui-monospace, monospace;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    .remotes { padding: 64px 20px; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
