@@ -1,0 +1,116 @@
+---
+const steps = [
+  { num: 1, title: 'Backup', desc: 'restic snapshots your directories to a local repository' },
+  { num: 2, title: 'Check', desc: 'repo integrity is verified before any remote sync' },
+  { num: 3, title: 'Forget', desc: 'old snapshots are pruned by your retention policy' },
+  { num: 4, title: 'Sync', desc: 'data is pushed to all configured remote backends' },
+]
+---
+
+<section class="how" id="how-it-works">
+  <div class="inner">
+    <p class="label">How it works</p>
+    <h2>One command.<br />Four phases.</h2>
+
+    <div class="steps">
+      <div class="connector"></div>
+      {steps.map((s) => (
+        <div class="step">
+          <div class="circle">{s.num}</div>
+          <h3>{s.title}</h3>
+          <p>{s.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .how {
+    background: var(--bg2);
+    padding: 80px 48px;
+    transition: background 0.2s;
+  }
+
+  .inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 56px;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+  }
+
+  .connector {
+    position: absolute;
+    top: 23px;
+    left: calc(12.5% + 12px);
+    right: calc(12.5% + 12px);
+    height: 2px;
+    background: linear-gradient(to right, var(--accent), var(--accent2));
+    opacity: 0.35;
+    z-index: 0;
+  }
+
+  .step {
+    text-align: center;
+    padding: 0 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--bg2);
+    border: 2px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--accent);
+    margin: 0 auto 16px;
+  }
+
+  .step h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .step p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 640px) {
+    .how { padding: 64px 20px; }
+    .steps { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .connector { display: none; }
+  }
+</style>
