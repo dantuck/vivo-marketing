@@ -14,9 +14,9 @@
       GitHub ↗
     </a>
     <div class="theme-pill" role="group" aria-label="Theme">
-      <button class="theme-btn" data-theme-value="light" aria-label="Light theme">☀</button>
-      <button class="theme-btn" data-theme-value="dark" aria-label="Dark theme">◐</button>
-      <button class="theme-btn" data-theme-value="system" aria-label="System theme">⬡</button>
+      <button class="theme-btn" data-theme-value="light" aria-label="Light theme" aria-pressed="false">☀</button>
+      <button class="theme-btn" data-theme-value="dark" aria-label="Dark theme" aria-pressed="false">◐</button>
+      <button class="theme-btn" data-theme-value="system" aria-label="System theme" aria-pressed="false">⬡</button>
     </div>
   </div>
 </nav>
@@ -29,7 +29,9 @@
   function syncButtons() {
     const current = localStorage.getItem('theme') ?? 'system'
     document.querySelectorAll<HTMLButtonElement>('.theme-btn').forEach((btn) => {
-      btn.classList.toggle('active', btn.dataset.themeValue === current)
+      const isActive = btn.dataset.themeValue === current
+      btn.classList.toggle('active', isActive)
+      btn.setAttribute('aria-pressed', String(isActive))
     })
   }
 
@@ -37,9 +39,11 @@
 
   document.querySelectorAll<HTMLButtonElement>('.theme-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
-      const value = btn.dataset.themeValue as 'dark' | 'light' | 'system'
-      setTheme(value)
-      syncButtons()
+      const value = btn.dataset.themeValue
+      if (value === 'dark' || value === 'light' || value === 'system') {
+        setTheme(value)
+        syncButtons()
+      }
     })
   })
 </script>

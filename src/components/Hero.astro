@@ -46,8 +46,12 @@ const VERSION = 'v0.4.2'
   const cmd = document.getElementById('install-cmd')!
 
   btn.addEventListener('click', async () => {
-    await navigator.clipboard.writeText(cmd.textContent ?? '')
-    label.textContent = 'copied!'
+    try {
+      await navigator.clipboard.writeText(cmd.textContent ?? '')
+      label.textContent = 'copied!'
+    } catch {
+      label.textContent = 'failed'
+    }
     setTimeout(() => { label.textContent = 'copy' }, 2000)
   })
 </script>

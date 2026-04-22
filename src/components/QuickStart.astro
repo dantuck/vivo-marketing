@@ -3,22 +3,22 @@ const steps = [
   {
     title: 'Initialize vivo',
     desc: 'Checks prerequisites and scaffolds your config and secrets files.',
-    cmd: 'vivo init',
+    cmd: ['vivo init'],
   },
   {
     title: 'Edit your config',
     desc: 'Set your repo path, directories to back up, and remote destinations.',
-    cmd: 'vivo config edit',
+    cmd: ['vivo config edit'],
   },
   {
     title: 'Add your secrets',
     desc: 'Set your restic password and remote credentials, encrypted with SOPS + age.',
-    cmd: 'vivo secrets edit',
+    cmd: ['vivo secrets edit'],
   },
   {
     title: 'Run a backup',
     desc: 'Dry-run first to verify your setup, then run the real backup.',
-    cmd: 'vivo --dry-run\nvivo',
+    cmd: ['vivo --dry-run', 'vivo'],
   },
 ]
 ---
@@ -35,7 +35,7 @@ const steps = [
           <div class="content">
             <h3>{s.title}</h3>
             <p>{s.desc}</p>
-            <pre class="cmd"><span class="prompt">$</span> {s.cmd}</pre>
+            <pre class="cmd" set:html={s.cmd.map(line => `<span class="prompt">$</span> ${line}`).join('\n')}></pre>
           </div>
         </div>
       ))}
@@ -123,6 +123,7 @@ const steps = [
     color: var(--code-text);
     margin: 0;
     white-space: pre;
+    overflow-x: auto;
     line-height: 1.7;
   }
 

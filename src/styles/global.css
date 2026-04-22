@@ -44,3 +44,8 @@ code, pre, kbd {
 }
 
 a { color: inherit; text-decoration: none; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+}
