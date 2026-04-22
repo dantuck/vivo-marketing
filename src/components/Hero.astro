@@ -1,6 +1,11 @@
 ---
 const INSTALL_CMD = 'curl -sSf https://raw.githubusercontent.com/dantuck/vivo/main/install.sh | sh'
-const VERSION = 'v0.4.2'
+
+const res = await fetch('https://crates.io/api/v1/crates/vivo', {
+  headers: { 'User-Agent': 'vivo-marketing-site (claudeai@danieltucker.dev)' },
+})
+const data = await res.json()
+const VERSION = `v${data.crate.newest_version}`
 ---
 
 <section class="hero" id="hero">
