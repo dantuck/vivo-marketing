@@ -1,0 +1,45 @@
+<h2>What design direction fits Vivo?</h2>
+<p class="subtitle">Vivo is a developer CLI tool — pick the aesthetic that feels right for its audience</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="terminal" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0d1117;padding:20px;font-family:monospace;font-size:13px;line-height:1.6;color:#e6edf3;min-height:160px;">
+      <span style="color:#7ee787">$</span> <span style="color:#79c0ff">vivo</span> init<br>
+      <span style="color:#8b949e">✓ restic found</span><br>
+      <span style="color:#8b949e">✓ sops found</span><br>
+      <span style="color:#8b949e">✓ age key found</span><br>
+      <span style="color:#7ee787">→</span> Config written to ~/.config/vivo/backup.kdl<br>
+      <span style="color:#7ee787">→</span> Secrets written to ~/.config/vivo/secrets.yaml<br>
+    </div>
+    <div class="card-body">
+      <h3>Dark / Terminal-native</h3>
+      <p>Dark background, monospace accents, green/amber highlights. Feels at home on a hacker's screen.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="clean" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f8fafc;padding:20px;font-family:system-ui;font-size:13px;line-height:1.6;color:#0f172a;min-height:160px;border-bottom:1px solid #e2e8f0;">
+      <div style="font-size:22px;font-weight:700;color:#0f172a;margin-bottom:6px;">Backups that just work.</div>
+      <div style="color:#64748b;font-size:13px;margin-bottom:14px;">Vivo wraps restic to give you encrypted, multi-remote backups with a single command.</div>
+      <div style="display:inline-block;background:#0f172a;color:#f8fafc;padding:5px 14px;border-radius:5px;font-family:monospace;font-size:12px;">curl -sSf https://... | sh</div>
+    </div>
+    <div class="card-body">
+      <h3>Clean / Modern Light</h3>
+      <p>White background, crisp typography, subtle shadows. Professional, approachable, like a SaaS landing page.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="hybrid" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);padding:20px;font-family:system-ui;font-size:13px;line-height:1.6;color:#f1f5f9;min-height:160px;">
+      <div style="font-size:20px;font-weight:700;color:#f1f5f9;margin-bottom:6px;">Encrypted backups.<br><span style="color:#34d399">Synced everywhere.</span></div>
+      <div style="color:#94a3b8;font-size:12px;margin-bottom:12px;">A restic wrapper that handles the hard parts.</div>
+      <div style="background:#0d1117;border:1px solid #334155;border-radius:6px;padding:8px 12px;font-family:monospace;font-size:11px;color:#7ee787;">$ curl -sSf https://raw.githubusercontent.com/dantuck/vivo/main/install.sh | sh</div>
+    </div>
+    <div class="card-body">
+      <h3>Dark but polished</h3>
+      <p>Deep navy/slate background with clean sans-serif type and color accents. Technical feel with modern visual polish.</p>
+    </div>
+  </div>
+
+</div>
