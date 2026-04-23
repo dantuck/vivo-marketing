@@ -41,7 +41,7 @@ try {
               .slice(1)
               .filter(l => l.startsWith('* '))
               .map(l =>
-                l.slice(2).replace(/\s*\([a-f0-9]{7,}\]\([^)]+\)\)/g, '').trim(),
+                l.slice(2).replace(/\s*\(\[[a-f0-9]{7,}\]\([^)]+\)\)/g, '').trim(),
               ),
           };
         })
@@ -64,13 +64,13 @@ try {
         {releases.map(r => (
           <div class="release">
             <div class="release-header">
-              <a href={r.url} target="_blank" rel="noopener" class="version">v{r.version}</a>
+              <a href={r.url} target="_blank" rel="noopener" class="version" aria-label={`Release v${r.version} on GitHub`}>v{r.version}</a>
               <span class="date">{r.date}</span>
             </div>
             {r.sections.map(s => (
               <div class="section">
                 <p class="section-title">{s.title}</p>
-                <ul>
+                <ul role="list">
                   {s.entries.map(e => <li>{e}</li>)}
                 </ul>
               </div>
