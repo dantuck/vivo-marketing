@@ -48,4 +48,9 @@ a { color: inherit; text-decoration: none; }
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 72px;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
 }
