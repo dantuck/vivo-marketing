@@ -109,8 +109,14 @@ const steps = [
   }
 
   @media (max-width: 640px) {
-    .how { padding: 64px 20px; }
+    .how { padding: 56px 16px; }
     .steps { grid-template-columns: 1fr 1fr; gap: 32px; }
     .connector { display: none; }
+  }
+
+  @media (max-width: 420px) {
+    .steps { grid-template-columns: 1fr; gap: 24px; }
+    .step { text-align: left; display: flex; align-items: flex-start; gap: 16px; }
+    .circle { margin: 0; flex-shrink: 0; }
   }
 </style>

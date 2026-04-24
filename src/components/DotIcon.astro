@@ -1,0 +1,50 @@
+---
+interface Props { size?: number }
+const { size = 32 } = Astro.props;
+
+const G: Record<string, number[][]> = {
+  V: [[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[0,1,0,1,0],[0,1,0,1,0],[0,0,1,0,0],[0,0,1,0,0]],
+  K: [[1,0,0,0,1],[1,0,0,1,0],[1,0,1,0,0],[1,1,0,0,0],[1,0,1,0,0],[1,0,0,1,0],[1,0,0,0,1]],
+};
+
+const COLS  = 11; // V(5) + gap(1) + K(5)
+const ROWS  = 7;
+const pad   = size * 0.14;
+const pitch = (size - pad * 2) / Math.max(COLS, ROWS);
+const r_lit = pitch * 0.38;
+const r_dim = pitch * 0.20;
+const ox    = (size - COLS * pitch) / 2 + pitch / 2;
+const oy    = (size - ROWS * pitch) / 2 + pitch / 2;
+const br    = size * 0.14; // border radius
+
+interface Dot { x: number; y: number; r: number; fill: string }
+const dots: Dot[] = [];
+
+// Dim grid
+for (let row = 0; row < ROWS; row++)
+  for (let c = 0; c < COLS; c++)
+    dots.push({ x: ox + c * pitch, y: oy + row * pitch, r: r_dim, fill: '#2a3555' });
+
+// V (cols 0–4)
+G.V.forEach((row, ri) => row.forEach((on, ci) => {
+  if (on) dots.push({ x: ox + ci * pitch, y: oy + ri * pitch, r: r_lit, fill: '#f1f5f9' });
+}));
+
+// K (cols 6–10)
+G.K.forEach((row, ri) => row.forEach((on, ci) => {
+  if (on) dots.push({ x: ox + (ci + 6) * pitch, y: oy + ri * pitch, r: r_lit, fill: '#34d399' });
+}));
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox={`0 0 ${size} ${size}`}
+  xmlns="http://www.w3.org/2000/svg"
+  aria-label="vivo·keep icon"
+  role="img"
+>
+  {dots.map(d => (
+    <circle cx={d.x} cy={d.y} r={d.r} fill={d.fill} />
+  ))}
+</svg>

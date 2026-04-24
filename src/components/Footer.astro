@@ -1,4 +1,5 @@
 ---
+import DotIcon from './DotIcon.astro';
 const links = [
   { label: 'GitHub', href: 'https://github.com/dantuck/vivo' },
   { label: 'Codeberg', href: 'https://codeberg.org/tuck/vivo' },
@@ -9,8 +10,8 @@ const links = [
 
 <footer>
   <div class="logo">
-    <div class="logo-mark">V</div>
-    <span>vivo</span>
+    <DotIcon size={24} />
+    <span class="brand">vivo<em class="keep">·keep</em></span>
   </div>
   <nav class="links" aria-label="Footer links">
     {links.map((l) => (
@@ -36,22 +37,26 @@ const links = [
     display: flex;
     align-items: center;
     gap: 8px;
-    font-weight: 700;
     font-size: 15px;
     color: var(--text);
   }
 
-  .logo-mark {
-    width: 24px;
-    height: 24px;
-    background: var(--accent);
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 800;
-    color: #0f172a;
+  .brand {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .keep {
+    font-style: normal;
+    font-weight: 300;
+    color: var(--accent);
+    margin-left: 1px;
+  }
+
+  .logo svg {
+    display: block;
+    border-radius: 4px;
+    flex-shrink: 0;
   }
 
   .links {
@@ -74,6 +79,6 @@ const links = [
   }
 
   @media (max-width: 640px) {
-    footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 16px; }
+    footer { padding: 24px 16px; flex-direction: column; align-items: flex-start; gap: 16px; }
   }
 </style>
