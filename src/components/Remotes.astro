@@ -2,9 +2,15 @@
 const remotes = [
   {
     title: 'S3-compatible',
-    body: 'AWS S3, MinIO, rustfs, or any S3-compatible endpoint. Uses restic copy for fast, verified transfer. Initialize the remote repo once before first sync.',
+    body: 'AWS S3, MinIO, or any S3-compatible endpoint. Uses restic copy for fast, verified transfer. Initialize the remote repo once before first sync.',
     tag: 's3:https://s3.amazonaws.com/my-bucket',
     init: 'restic init --repo s3:https://s3.amazonaws.com/my-bucket',
+  },
+  {
+    title: 'RustFS',
+    body: 'Self-hosted S3-compatible object storage via the rustfs: prefix — an alias for S3-compatible storage. Perfect for home labs and private NAS setups. Import credentials once with vivo secrets import-s3.',
+    tag: 'rustfs:http://nas:9000/bucket',
+    init: 'restic init --repo rustfs:http://nas:9000/bucket',
   },
   {
     title: 'Backblaze B2',
@@ -70,7 +76,7 @@ const remotes = [
 
   .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
   }
 
@@ -134,6 +140,10 @@ const remotes = [
     font-family: ui-monospace, monospace;
     overflow-x: auto;
     white-space: nowrap;
+  }
+
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr 1fr; }
   }
 
   @media (max-width: 640px) {

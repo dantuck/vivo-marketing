@@ -6,13 +6,18 @@ const steps = [
     cmd: ['vivo init'],
   },
   {
-    title: 'Edit your config',
-    desc: 'Set your repo path, directories to back up, and remote destinations.',
-    cmd: ['vivo config edit'],
+    title: 'Add a backup task',
+    desc: 'Create a named task with its restic repo and the directory to back up. Or use vivo manage for an interactive TUI.',
+    cmd: ['vivo task add --name main --repo ~/.local/share/restic/main --dir ~', 'vivo manage'],
+  },
+  {
+    title: 'Add remote destinations',
+    desc: 'Attach one or more remotes to a task — S3, RustFS, or Backblaze B2. Import S3/RustFS credentials first.',
+    cmd: ['vivo secrets import-s3 --profile rustfs', 'vivo remote add --task main --url "rustfs:http://nas:9000/bucket" --credentials rustfs'],
   },
   {
     title: 'Add your secrets',
-    desc: 'Set your restic password and remote credentials, encrypted with SOPS + age.',
+    desc: 'Set your restic password and any additional remote credentials, encrypted with SOPS + age.',
     cmd: ['vivo secrets edit'],
   },
   {
@@ -26,7 +31,7 @@ const steps = [
 <section class="quickstart" id="quick-start">
   <div class="inner">
     <p class="label">Quick Start</p>
-    <h2>Up and running<br />in four commands.</h2>
+    <h2>Up and running<br />in five steps.</h2>
 
     <div class="steps">
       {steps.map((s, i) => (
