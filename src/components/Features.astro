@@ -50,6 +50,26 @@ const features = [
     title: 'Browse backups as files',
     body: 'Run `vivo mount` to explore any local or remote backup repo as a FUSE filesystem. Navigate snapshots, find individual files, and restore without touching restic directly.',
   },
+  {
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>`,
+    title: 'Schedules itself',
+    body: 'Run `vivo schedule add` and vivo installs a daily launchd agent, systemd timer or cron entry for you, with the right PATH, your config and key locations, and a log file. No hand-written plist.',
+  },
+  {
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+    title: 'Knows when it is broken',
+    body: 'Run `vivo status` for the newest snapshot, the last sync to each remote, and your schedule. It exits non-zero when something is stale or failing. Add `on-failure` and `on-success` hooks to a task to send yourself a notification.',
+  },
+  {
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>`,
+    title: 'One-command restore',
+    body: 'Run `vivo restore` to pick a task, snapshot and destination, or restore just one path. `vivo snapshots` lists what you have. No FUSE needed, and restores never overwrite your live files by default.',
+  },
+  {
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/><polyline points="9 12 11 14 15 10"/></svg>`,
+    title: 'Rebuild a lost machine',
+    body: 'Every remote also keeps a small recovery copy of your encrypted secrets and config. On a new machine, restore your age key and run `vivo recover` to get your setup back, then `vivo restore` for your files.',
+  },
 ]
 ---
 

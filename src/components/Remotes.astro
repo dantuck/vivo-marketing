@@ -41,10 +41,36 @@ const remotes = [
         </div>
       ))}
     </div>
+
+    <p class="recovery">
+      <strong>Recovery copy.</strong> After each sync, vivo also keeps your encrypted
+      <code>secrets.yaml</code> and an age-encrypted <code>backup.kdl</code> next to each repository
+      (in a sibling <code>.vivo-recovery</code> folder, or a <code>-vivo-recovery</code> bucket for a RustFS
+      bucket root). They are only re-uploaded when they change, and a Backblaze B2 repo needs a folder in its
+      bucket (<code>b2:bucket:folder</code>) to have one. Opt a remote out with <code>recovery false</code>.
+    </p>
   </div>
 </section>
 
 <style>
+  .recovery {
+    margin-top: 28px;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .recovery strong { color: var(--text); }
+
+  .recovery code {
+    background: var(--bg3);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: ui-monospace, monospace;
+    font-size: 13px;
+    color: var(--accent);
+  }
+
   .remotes {
     background: var(--bg);
     padding: 80px 48px;
