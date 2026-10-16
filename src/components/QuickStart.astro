@@ -2,7 +2,7 @@
 const steps = [
   {
     title: 'Initialize vivo',
-    desc: 'Checks prerequisites and scaffolds your config and secrets files.',
+    desc: 'A guided setup: checks prerequisites, creates your age key, sets the restic password, adds and tests an off-site remote, then offers a dry-run and a first backup. Steps 2–4 below are the same pieces, available on their own. Not on a terminal? It writes a static starter config instead.',
     cmd: ['vivo init'],
   },
   {
@@ -12,8 +12,8 @@ const steps = [
   },
   {
     title: 'Add remote destinations',
-    desc: 'Attach one or more remotes to a task — S3, RustFS, or Backblaze B2. Import S3/RustFS credentials first.',
-    cmd: ['vivo secrets import-s3 --profile rustfs', 'vivo remote add --task main --url "rustfs:http://nas:9000/bucket" --credentials rustfs'],
+    desc: 'Attach one or more remotes to a task — S3, RustFS, or Backblaze B2. Run vivo remote add with no flags for a guided flow, then test every remote any time.',
+    cmd: ['vivo secrets import-s3 --profile rustfs', 'vivo remote add --task main --url "rustfs:http://nas:9000/bucket" --credentials rustfs', 'vivo remote test', 'vivo remote list'],
   },
   {
     title: 'Add your secrets',
@@ -24,6 +24,7 @@ const steps = [
     title: 'Run a backup',
     desc: 'Dry-run first to verify your setup, then run the real backup.',
     cmd: ['vivo --dry-run', 'vivo'],
+    note: 'vivo exits non-zero if the backup fails or any remote fails to sync, so schedulers can alert on it.',
   },
 ]
 ---
@@ -41,6 +42,7 @@ const steps = [
             <h3>{s.title}</h3>
             <p>{s.desc}</p>
             <pre class="cmd" set:html={s.cmd.map(line => `<span class="prompt">$</span> ${line}`).join('\n')}></pre>
+            {s.note && <p class="note">{s.note}</p>}
           </div>
         </div>
       ))}
@@ -139,6 +141,8 @@ const steps = [
   }
 
   .prompt { color: var(--accent); }
+
+  .content p.note { margin: 10px 0 0; font-size: 13px; }
 
   @media (max-width: 640px) {
     .quickstart { padding: 56px 16px; }
