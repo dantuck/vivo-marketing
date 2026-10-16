@@ -1,0 +1,166 @@
+---
+const options = [
+  {
+    title: 'macOS (launchd)',
+    file: '~/Library/LaunchAgents/dev.vivo.backup.plist',
+    code: `<key>ProgramArguments</key>
+<array><string>/usr/local/bin/vivo</string></array>
+<key>EnvironmentVariables</key>
+<dict><key>PATH</key>
+  <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string></dict>
+<key>StartCalendarInterval</key>
+<dict><key>Hour</key><integer>2</integer>
+  <key>Minute</key><integer>0</integer></dict>`,
+    run: 'launchctl load ~/Library/LaunchAgents/dev.vivo.backup.plist',
+  },
+  {
+    title: 'Linux (systemd timer)',
+    file: '~/.config/systemd/user/vivo.{service,timer}',
+    code: `# vivo.service
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/vivo
+
+# vivo.timer
+[Timer]
+OnCalendar=daily
+Persistent=true`,
+    run: 'systemctl --user enable --now vivo.timer',
+  },
+  {
+    title: 'cron',
+    file: 'crontab -e',
+    code: `0 2 * * * PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin \\
+  /usr/local/bin/vivo >> $HOME/vivo.log 2>&1`,
+    run: null,
+  },
+]
+---
+
+<section class="scheduling" id="scheduling">
+  <div class="inner">
+    <p class="label">Scheduling</p>
+    <h2>Run it once.<br />Schedule it anywhere.</h2>
+    <p class="intro">
+      vivo runs once and exits, so any scheduler works. Use the full path to <code>vivo</code>,
+      check with <code>vivo --dry-run</code> first, and make sure <code>restic</code>, <code>sops</code>
+      and your sync tools (<code>mc</code>, <code>b2</code>) are on the job's <code>PATH</code>.
+      vivo exits non-zero on any failure, so your scheduler can alert you.
+    </p>
+
+    <div class="grid">
+      {options.map((o) => (
+        <div class="card">
+          <h3>{o.title}</h3>
+          <span class="file">{o.file}</span>
+          <pre class="code">{o.code}</pre>
+          {o.run && <pre class="code run"><span class="prompt">$</span> {o.run}</pre>}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .scheduling {
+    background: var(--bg2);
+    padding: 80px 48px;
+    transition: background 0.2s;
+  }
+
+  .inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+
+  .intro {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 700px;
+    margin-bottom: 36px;
+  }
+
+  .intro code {
+    background: var(--bg3);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: ui-monospace, monospace;
+    font-size: 13px;
+    color: var(--accent);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: background 0.2s;
+  }
+
+  .card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .file {
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--muted);
+    overflow-wrap: anywhere;
+  }
+
+  .code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 10px 12px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 12px;
+    color: var(--code-text);
+    margin: 0;
+    white-space: pre;
+    overflow-x: auto;
+    line-height: 1.7;
+  }
+
+  .prompt { color: var(--accent); }
+
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    .scheduling { padding: 56px 16px; }
+    .code { font-size: 11px; }
+  }
+</style>
