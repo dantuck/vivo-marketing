@@ -26,13 +26,18 @@ const steps = [
     cmd: ['vivo --dry-run', 'vivo'],
     note: 'vivo exits non-zero if the backup fails or any remote fails to sync, so schedulers can alert on it.',
   },
+  {
+    title: 'Automate it and check in',
+    desc: 'Schedule a daily backup, see at a glance whether it is working, and get files back when you need them.',
+    cmd: ['vivo schedule add', 'vivo status', 'vivo restore'],
+  },
 ]
 ---
 
 <section class="quickstart" id="quick-start">
   <div class="inner">
     <p class="label">Quick Start</p>
-    <h2>Up and running<br />in five steps.</h2>
+    <h2>Up and running<br />in six steps.</h2>
 
     <div class="steps">
       {steps.map((s, i) => (

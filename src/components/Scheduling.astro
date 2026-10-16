@@ -7,11 +7,12 @@ const options = [
 <array><string>/usr/local/bin/vivo</string></array>
 <key>EnvironmentVariables</key>
 <dict><key>PATH</key>
-  <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string></dict>
+  <string>/opt/homebrew/bin:/usr/bin:/bin</string>
+  <!-- config, secrets, age key, state dir -->
+</dict>
 <key>StartCalendarInterval</key>
 <dict><key>Hour</key><integer>2</integer>
   <key>Minute</key><integer>0</integer></dict>`,
-    run: 'launchctl load ~/Library/LaunchAgents/dev.vivo.backup.plist',
   },
   {
     title: 'Linux (systemd timer)',
@@ -19,20 +20,21 @@ const options = [
     code: `# vivo.service
 [Service]
 Type=oneshot
-ExecStart=%h/.local/bin/vivo
+Environment="PATH=..."
+ExecStart=/home/you/.local/bin/vivo
 
 # vivo.timer
 [Timer]
-OnCalendar=daily
+OnCalendar=*-*-* 02:00:00
 Persistent=true`,
-    run: 'systemctl --user enable --now vivo.timer',
   },
   {
     title: 'cron',
-    file: 'crontab -e',
-    code: `0 2 * * * PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin \\
-  /usr/local/bin/vivo >> $HOME/vivo.log 2>&1`,
-    run: null,
+    file: 'your crontab (no systemd)',
+    code: `# >>> vivo backup >>>
+0 2 * * * PATH='...' '/usr/local/bin/vivo' \\
+  >> '~/.local/state/vivo/vivo.log' 2>&1
+# <<< vivo backup <<<`,
   },
 ]
 ---
@@ -40,13 +42,21 @@ Persistent=true`,
 <section class="scheduling" id="scheduling">
   <div class="inner">
     <p class="label">Scheduling</p>
-    <h2>Run it once.<br />Schedule it anywhere.</h2>
+    <h2>One command.<br />Backed up every day.</h2>
     <p class="intro">
-      vivo runs once and exits, so any scheduler works. Use the full path to <code>vivo</code>,
-      check with <code>vivo --dry-run</code> first, and make sure <code>restic</code>, <code>sops</code>
-      and your sync tools (<code>mc</code>, <code>b2</code>) are on the job's <code>PATH</code>.
-      vivo exits non-zero on any failure, so your scheduler can alert you.
+      <code>vivo schedule add</code> installs the right scheduler for your system and takes care of the
+      details that make hand-written jobs fail: the full path to <code>vivo</code>, a <code>PATH</code> that
+      finds <code>restic</code>, <code>sops</code> and your sync tools, your custom config and key locations,
+      and a log file. A Mac that is asleep at backup time runs it on wake. vivo exits non-zero on any failure,
+      and <code>vivo status</code> tells you whether the last run actually worked.
     </p>
+
+    <pre class="code main"><span class="prompt">$</span> vivo schedule add             <span class="cmt"># daily at 02:00, or --at 03:30</span>
+<span class="prompt">$</span> vivo schedule status          <span class="cmt"># is it installed, and when does it run?</span>
+<span class="prompt">$</span> vivo status                   <span class="cmt"># latest snapshot and last sync per remote</span>
+<span class="prompt">$</span> vivo schedule remove</pre>
+
+    <p class="sub">What vivo installs for you:</p>
 
     <div class="grid">
       {options.map((o) => (
@@ -54,7 +64,6 @@ Persistent=true`,
           <h3>{o.title}</h3>
           <span class="file">{o.file}</span>
           <pre class="code">{o.code}</pre>
-          {o.run && <pre class="code run"><span class="prompt">$</span> {o.run}</pre>}
         </div>
       ))}
     </div>
@@ -154,6 +163,19 @@ Persistent=true`,
   }
 
   .prompt { color: var(--accent); }
+  .cmt { color: var(--muted); }
+
+  .code.main {
+    margin-bottom: 28px;
+    font-size: 13px;
+  }
+
+  .sub {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
 
   @media (max-width: 900px) {
     .grid { grid-template-columns: 1fr; }
